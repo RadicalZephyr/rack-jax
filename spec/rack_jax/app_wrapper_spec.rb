@@ -69,6 +69,10 @@ describe RackJax::AppWrapper do
         it 'run once' do
           expect(app.env).to include('rack.run_once' => false)
         end
+
+        it 'hijack' do
+          expect(app.env).to include('rack.hijack?' => false)
+        end
       end
 
       context 'for GET' do
