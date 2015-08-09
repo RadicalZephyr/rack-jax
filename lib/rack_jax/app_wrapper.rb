@@ -10,6 +10,7 @@ module RackJax
 
     def handle(request)
       env = {
+        "rack.version" => [1,1],
         "REQUEST_METHOD" => request.method.to_s,
         "SCRIPT_NAME" => "",
         "PATH_INFO" => request.path.to_s,

@@ -49,6 +49,12 @@ describe RackJax::AppWrapper do
     end
 
     context 'sees an env' do
+      context 'with the rack variables' do
+        it 'rack version' do
+          expect(app.env).to include("rack.version" => [1,1])
+        end
+      end
+
       context 'for GET' do
         context 'with the' do
           it 'request method' do
