@@ -12,7 +12,8 @@ module RackJax
       env = {
         "REQUEST_METHOD" => request.method.to_s,
         "SCRIPT_NAME" => "",
-        "PATH_INFO" => request.path.to_s
+        "PATH_INFO" => request.path.to_s,
+        "QUERY_STRING" => request.query.to_s
       }
       app.call(env)
       {}
