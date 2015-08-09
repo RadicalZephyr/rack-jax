@@ -9,7 +9,10 @@ module RackJax
     end
 
     def handle(request)
-      env = {"REQUEST_METHOD" => request.method.to_s}
+      env = {
+        "REQUEST_METHOD" => request.method.to_s,
+        "SCRIPT_NAME" => ""
+      }
       app.call(env)
       {}
     end

@@ -43,10 +43,18 @@ describe RackJax::AppWrapper do
           expect(app.called).to be_truthy
         end
 
-        it 'with the request method' do
-          response = wrapper.handle(request)
+        context 'with the' do
+          it 'request method' do
+            response = wrapper.handle(request)
 
-          expect(app.env).to include("REQUEST_METHOD" => "GET")
+            expect(app.env).to include("REQUEST_METHOD" => "GET")
+          end
+
+          it 'script name' do
+            response = wrapper.handle(request)
+
+            expect(app.env).to include("SCRIPT_NAME" => "")
+          end
         end
       end
 
