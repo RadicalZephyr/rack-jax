@@ -29,8 +29,8 @@ describe RackJax::AppWrapper do
 
   context 'the wrapped app' do
 
-    let(:method) {request_method("GET")}
-    let(:path) {"/"}
+    let(:method) {request_method('GET')}
+    let(:path) {'/'}
     let(:query) {nil}
 
     let(:request) do
@@ -51,42 +51,42 @@ describe RackJax::AppWrapper do
     context 'sees an env' do
       context 'with the rack variables' do
         it 'version' do
-          expect(app.env).to include("rack.version" => [1,1])
+          expect(app.env).to include('rack.version' => [1,1])
         end
 
         it 'url scheme' do
-          expect(app.env).to include("rack.url_scheme" => "http")
+          expect(app.env).to include('rack.url_scheme' => 'http')
         end
 
         it 'multithread' do
-          expect(app.env).to include("rack.multithread" => true)
+          expect(app.env).to include('rack.multithread' => true)
         end
 
         it 'multiprocess' do
-          expect(app.env).to include("rack.multiprocess" => false)
+          expect(app.env).to include('rack.multiprocess' => false)
         end
 
         it 'run once' do
-          expect(app.env).to include("rack.run_once" => false)
+          expect(app.env).to include('rack.run_once' => false)
         end
       end
 
       context 'for GET' do
         context 'with the' do
           it 'request method' do
-            expect(app.env).to include("REQUEST_METHOD" => "GET")
+            expect(app.env).to include('REQUEST_METHOD' => 'GET')
           end
 
           it 'script name' do
-            expect(app.env).to include("SCRIPT_NAME" => "")
+            expect(app.env).to include('SCRIPT_NAME' => '')
           end
 
           it 'path info' do
-            expect(app.env).to include("PATH_INFO" => path)
+            expect(app.env).to include('PATH_INFO' => path)
           end
 
           it 'query string' do
-            expect(app.env).to include("QUERY_STRING" => "")
+            expect(app.env).to include('QUERY_STRING' => '')
           end
 
           context 'alternate path' do
@@ -94,21 +94,21 @@ describe RackJax::AppWrapper do
             let(:path)  {'/alt/path'}
 
             it 'info' do
-              expect(app.env).to include("PATH_INFO" => path)
+              expect(app.env).to include('PATH_INFO' => path)
             end
 
             it 'query string' do
-              expect(app.env).to include("QUERY_STRING" => query)
+              expect(app.env).to include('QUERY_STRING' => query)
             end
           end
         end
       end
 
       context 'for POST ' do
-        let(:method) {request_method("POST")}
+        let(:method) {request_method('POST')}
 
         it 'with the request method' do
-          expect(app.env).to include("REQUEST_METHOD" => "POST")
+          expect(app.env).to include('REQUEST_METHOD' => 'POST')
         end
       end
     end

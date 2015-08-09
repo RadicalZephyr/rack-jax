@@ -10,15 +10,15 @@ module RackJax
 
     def handle(request)
       env = {
-        "rack.version" => [1,1],
-        "rack.url_scheme" => "http",
-        "rack.multithread" => true,
-        "rack.multiprocess" => false,
-        "rack.run_once" => false,
-        "REQUEST_METHOD" => request.method.to_s,
-        "SCRIPT_NAME" => "",
-        "PATH_INFO" => request.path.to_s,
-        "QUERY_STRING" => request.query.to_s
+        'rack.version' => [1,1],
+        'rack.url_scheme' => 'http',
+        'rack.multithread' => true,
+        'rack.multiprocess' => false,
+        'rack.run_once' => false,
+        'REQUEST_METHOD' => request.method.to_s,
+        'SCRIPT_NAME' => '',
+        'PATH_INFO' => request.path.to_s,
+        'QUERY_STRING' => request.query.to_s
       }
       app.call(env)
       {}
