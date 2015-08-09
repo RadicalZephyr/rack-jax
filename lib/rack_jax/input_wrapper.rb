@@ -10,6 +10,14 @@ module RackJax
       line_reader.read_line
     end
 
+    def each
+      loop do
+        s = get
+        break if s.nil?
+        yield s
+      end
+    end
+
     private
     attr_reader :byte_reader
 
