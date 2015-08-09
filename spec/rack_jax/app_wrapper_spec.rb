@@ -16,8 +16,8 @@ describe RackJax::AppWrapper do
     end
   end
 
-  def http_request(method, path)
-    Java::NetZefiraizingHttp_server::HttpRequest.new(method, path)
+  def http_request_builder
+    Java::NetZefiraizingHttp_server::RequestBuilder.new
   end
 
   def request_method(method)
@@ -29,10 +29,15 @@ describe RackJax::AppWrapper do
 
   context 'the wrapped app' do
 
-    let(:path) {"/"}
     let(:method) {request_method("GET")}
+    let(:path) {"/"}
+    let(:query) {nil}
+
     let(:request) do
-      http_request(method, path)
+      b = http_request_builder
+      b.method(method).path(path)
+      b.query(query) unless query.nil?
+      b.build
     end
 
     before do
