@@ -57,6 +57,18 @@ describe RackJax::AppWrapper do
         it 'url scheme' do
           expect(app.env).to include("rack.url_scheme" => "http")
         end
+
+        it 'rack multithread' do
+          expect(app.env).to include("rack.multithread" => true)
+        end
+
+        it 'rack multiprocess' do
+          expect(app.env).to include("rack.multiprocess" => false)
+        end
+
+        it 'rack run once' do
+          expect(app.env).to include("rack.run_once" => false)
+        end
       end
 
       context 'for GET' do
