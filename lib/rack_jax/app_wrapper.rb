@@ -11,7 +11,8 @@ module RackJax
     def handle(request)
       env = {
         "REQUEST_METHOD" => request.method.to_s,
-        "SCRIPT_NAME" => ""
+        "SCRIPT_NAME" => "",
+        "PATH_INFO" => request.path.to_s
       }
       app.call(env)
       {}
