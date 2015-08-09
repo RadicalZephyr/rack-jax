@@ -54,6 +54,18 @@ describe RackJax::AppWrapper do
           it 'script name' do
             expect(app.env).to include("SCRIPT_NAME" => "")
           end
+
+          it 'path info' do
+            expect(app.env).to include("PATH_INFO" => path)
+          end
+
+          context 'alternate path' do
+            let(:path) {'/alt/path'}
+
+            it 'info' do
+              expect(app.env).to include("PATH_INFO" => path)
+            end
+          end
         end
       end
 
