@@ -1,5 +1,2 @@
-require "rack_jax/version"
-
-module RackJax
-  # Your code goes here...
-end
+require 'rack_jax/version'
+require 'rack_jax/app_wrapper'
