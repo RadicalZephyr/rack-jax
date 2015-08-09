@@ -53,6 +53,10 @@ describe RackJax::AppWrapper do
         it 'rack version' do
           expect(app.env).to include("rack.version" => [1,1])
         end
+
+        it 'url scheme' do
+          expect(app.env).to include("rack.url_scheme" => "http")
+        end
       end
 
       context 'for GET' do
