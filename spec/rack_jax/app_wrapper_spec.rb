@@ -37,10 +37,15 @@ describe RackJax::AppWrapper do
       context 'for GET' do
         let(:method) {request_method("GET")}
 
-        it 'with the request method' do
+        it 'calls the app' do
           response = wrapper.handle(request)
 
           expect(app.called).to be_truthy
+        end
+
+        it 'with the request method' do
+          response = wrapper.handle(request)
+
           expect(app.env).to include("REQUEST_METHOD" => "GET")
         end
       end
@@ -51,7 +56,6 @@ describe RackJax::AppWrapper do
         it 'with the request method' do
           response = wrapper.handle(request)
 
-          expect(app.called).to be_truthy
           expect(app.env).to include("REQUEST_METHOD" => "POST")
         end
       end
