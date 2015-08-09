@@ -1,12 +1,27 @@
 require 'spec_helper'
+require 'java'
+require 'jax-server-0.1.0.jar'
 
 describe RackJax::AppWrapper do
   class MockHandler
-    attr_reader :env
+    attr_reader :env, :called
+
+    def initialize
+      @called = false
+    end
 
     def call(env)
+      @called = true
       @env = env
     end
+  end
+
+  def http_request(method, path)
+    Java::NetZefiraizingHttp_server::HttpRequest.new(method, path)
+  end
+
+  def request_method(method)
+    Java::NetZefiraizingHttp_server::HttpRequest::Method.valueOf(method)
   end
 
   let(:app) {MockHandler.new}
@@ -14,13 +29,31 @@ describe RackJax::AppWrapper do
 
   context 'the wrapped app' do
 
-    context 'sees an ENV with' do
-      let(:request) {{}}
+    context 'sees an env' do
+      let(:request) do
+        http_request(method, "/")
+      end
 
-      it 'the request method' do
-        response = wrapper.handle(request)
+      context 'for GET' do
+        let(:method) {request_method("GET")}
 
-        expect(response).not_to be_nil
+        it 'with the request method' do
+          response = wrapper.handle(request)
+
+          expect(app.called).to be_truthy
+          expect(app.env).to include("REQUEST_METHOD" => "GET")
+        end
+      end
+
+      context 'for POST ' do
+        let(:method) {request_method("POST")}
+
+        it 'with the request method' do
+          response = wrapper.handle(request)
+
+          expect(app.called).to be_truthy
+          expect(app.env).to include("REQUEST_METHOD" => "POST")
+        end
       end
     end
   end
