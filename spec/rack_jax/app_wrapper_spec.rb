@@ -50,7 +50,7 @@ describe RackJax::AppWrapper do
 
     context 'sees an env' do
       context 'with the rack variables' do
-        it 'rack version' do
+        it 'version' do
           expect(app.env).to include("rack.version" => [1,1])
         end
 
@@ -58,15 +58,15 @@ describe RackJax::AppWrapper do
           expect(app.env).to include("rack.url_scheme" => "http")
         end
 
-        it 'rack multithread' do
+        it 'multithread' do
           expect(app.env).to include("rack.multithread" => true)
         end
 
-        it 'rack multiprocess' do
+        it 'multiprocess' do
           expect(app.env).to include("rack.multiprocess" => false)
         end
 
-        it 'rack run once' do
+        it 'run once' do
           expect(app.env).to include("rack.run_once" => false)
         end
       end
