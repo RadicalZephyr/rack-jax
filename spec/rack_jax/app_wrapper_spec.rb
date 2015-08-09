@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'java'
-require 'jax-server-0.1.0.jar'
 
 describe RackJax::AppWrapper do
   class MockHandler
