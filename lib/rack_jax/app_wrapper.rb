@@ -15,6 +15,7 @@ module RackJax
         'rack.multithread' => true,
         'rack.multiprocess' => false,
         'rack.run_once' => false,
+        'rack.hijack?' => false,
         'REQUEST_METHOD' => request.method.to_s,
         'SCRIPT_NAME' => '',
         'PATH_INFO' => request.path.to_s,
