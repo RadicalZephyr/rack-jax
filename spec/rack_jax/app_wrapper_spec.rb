@@ -63,11 +63,20 @@ describe RackJax::AppWrapper do
             expect(app.env).to include("PATH_INFO" => path)
           end
 
+          it 'query string' do
+            expect(app.env).to include("QUERY_STRING" => "")
+          end
+
           context 'alternate path' do
-            let(:path) {'/alt/path'}
+            let(:query) {'with-query=true'}
+            let(:path)  {'/alt/path'}
 
             it 'info' do
               expect(app.env).to include("PATH_INFO" => path)
+            end
+
+            it 'query string' do
+              expect(app.env).to include("QUERY_STRING" => query)
             end
           end
         end
