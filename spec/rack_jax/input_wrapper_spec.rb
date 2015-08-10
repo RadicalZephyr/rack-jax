@@ -28,6 +28,17 @@ describe RackJax::InputWrapper do
     end
   end
 
+  describe '#read' do
+    it 'reads a specific number of bytes' do
+      expect(input.read(5)).to eq('stuff')
+    end
+
+    it 'reads only that number of bytes' do
+      input.read(6)
+      expect(input.read(3)).to eq('and')
+    end
+  end
+
   context 'with multiple lines' do
     let(:second_line) {'more stuff, but no things'}
     let(:lines) {[first_line, second_line]}
