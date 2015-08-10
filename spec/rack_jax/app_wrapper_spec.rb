@@ -27,7 +27,9 @@ describe RackJax::AppWrapper do
   end
 
   let(:app) {MockHandler.new}
-  let(:wrapper) {described_class.new(app)}
+  let(:name) {'localhost'}
+  let(:port) {80}
+  let(:wrapper) {described_class.new(app, name, port)}
 
   context 'the wrapped app' do
 
@@ -113,6 +115,14 @@ describe RackJax::AppWrapper do
 
           it 'query string' do
             expect(app.env).to include('QUERY_STRING' => '')
+          end
+
+          it 'server name' do
+            expect(app.env).to include('SERVER_NAME' => 'localhost')
+          end
+
+          it 'server port' do
+            expect(app.env).to include('SERVER_PORT' => 80)
           end
 
           context 'alternate path' do
