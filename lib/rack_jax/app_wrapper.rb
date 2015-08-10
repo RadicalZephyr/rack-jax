@@ -1,8 +1,10 @@
 module RackJax
   class AppWrapper
 
-    def initialize(app)
+    def initialize(app, name, port)
       @app = app
+      @name = name
+      @port = port
     end
 
     def handle(request)
@@ -18,14 +20,16 @@ module RackJax
         'REQUEST_METHOD' => request.method.to_s,
         'SCRIPT_NAME' => '',
         'PATH_INFO' => request.path.to_s,
-        'QUERY_STRING' => request.query.to_s
+        'QUERY_STRING' => request.query.to_s,
+        'SERVER_NAME' => name,
+        'SERVER_PORT' => port
       }
       app.call(env)
       {}
     end
 
     private
-    attr_reader :app
+    attr_reader :app, :name, :port
 
     def error_io
       java.lang.System::err.to_io
