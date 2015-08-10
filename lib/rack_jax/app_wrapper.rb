@@ -45,9 +45,13 @@ module RackJax
     end
 
     def rackify_key(key)
-      prefix = "HTTP_"
+      prefix = prefix_header?(key) ? 'HTTP_' : ''
       key = key.upcase.gsub(/-/, '_')
       return prefix+key
+    end
+
+    def prefix_header?(key)
+      key != 'Content-Length' && key != 'Content-Type'
     end
 
     def error_io

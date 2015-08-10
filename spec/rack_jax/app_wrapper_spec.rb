@@ -66,7 +66,9 @@ describe RackJax::AppWrapper do
       let(:headers) do
         {
           'RandomHeader' => ['Things'],
-          'With-Hyphen'  => ['RatherUnderscores']
+          'With-Hyphen'  => ['RatherUnderscores'],
+          'Content-Length' => ['10'],
+          'Content-Type'   => ['text/xml']
         }
       end
 
@@ -76,6 +78,11 @@ describe RackJax::AppWrapper do
 
       it 'replaces - with _' do
         expect(app.env).to include('HTTP_WITH_HYPHEN'  => 'RatherUnderscores')
+      end
+
+      it 'doesnt prefix content headers' do
+        expect(app.env).to include('CONTENT_LENGTH' => '10')
+        expect(app.env).to include('CONTENT_TYPE'   => 'text/xml')
       end
     end
 
