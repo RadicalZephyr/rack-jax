@@ -46,7 +46,7 @@ module RackJax
     attr_reader :app, :name, :port
 
     def format_log(env)
-      "[#{env['REQUEST_METHOD']} #{env['PATH_INFO']}?#{env['QUERY_STRING']} #{env.each.to_a}]"
+      "[#{env['REQUEST_METHOD']} #{env['PATH_INFO']}?#{env['QUERY_STRING']}] #{env.each.to_a}]"
     end
 
     def http_response(status)
