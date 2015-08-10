@@ -18,7 +18,8 @@ module RackJax
       end
     end
 
-    def read(length)
+    def read(length=nil)
+      length ||= byte_reader.available
       buff = Java::byte[length].new
       byte_reader.read(buff, 0, length)
 

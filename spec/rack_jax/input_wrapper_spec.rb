@@ -37,6 +37,12 @@ describe RackJax::InputWrapper do
       input.read(6)
       expect(input.read(3)).to eq('and')
     end
+
+    context 'with nil length' do
+      it 'reads the whole contents' do
+        expect(input.read).to eq(first_line)
+      end
+    end
   end
 
   context 'with multiple lines' do
