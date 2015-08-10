@@ -51,11 +51,11 @@ describe RackJax::AppWrapper do
       end
 
       it 'RandomHeader' do
-        expect(response.headers['RandomHeader']).to eq(['Things'])
+        expect(response.headers['RandomHeader']).to eq('Things')
       end
 
       it 'With-Hyphen' do
-        expect(response.headers['With-Hyphen']).to eq(['RatherUnderscores'])
+        expect(response.headers['With-Hyphen']).to eq('RatherUnderscores')
       end
 
       context 'omits rack.*' do

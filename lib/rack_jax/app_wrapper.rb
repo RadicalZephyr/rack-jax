@@ -61,7 +61,7 @@ module RackJax
 
     def rackify_headers(headers)
       headers.map do |k,v|
-        [rackify_key(k), v.join('')]
+        [rackify_key(k), v]
       end.to_h
     end
 
