@@ -66,13 +66,15 @@ describe RackJax::AppWrapper do
       let(:headers) do
         {
           'RandomHeader' => ['Things'],
-          'OtherHeader'  => ['Stuff']
+          'OtherHeader'  => ['Stuff'],
+          'With-Hyphen'  => ['RatherUnderscores']
         }
       end
 
       it 'rackifies each header' do
-        expect(app.env).to include('HTTP_RandomHeader' => 'Things')
-        expect(app.env).to include('HTTP_OtherHeader' => 'Stuff')
+        expect(app.env).to include('HTTP_RANDOMHEADER' => 'Things')
+        expect(app.env).to include('HTTP_OTHERHEADER' => 'Stuff')
+        expect(app.env).to include('HTTP_WITH_HYPHEN' => 'RatherUnderscores')
       end
     end
 

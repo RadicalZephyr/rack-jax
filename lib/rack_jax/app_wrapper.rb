@@ -40,8 +40,14 @@ module RackJax
 
     def rackify_headers(headers)
       headers.map do |k,v|
-        ["HTTP_#{k}", v.join('')]
+        [rackify_key(k), v.join('')]
       end.to_h
+    end
+
+    def rackify_key(key)
+      prefix = "HTTP_"
+      key = key.upcase.gsub(/-/, '_')
+      return prefix+key
     end
 
     def error_io
