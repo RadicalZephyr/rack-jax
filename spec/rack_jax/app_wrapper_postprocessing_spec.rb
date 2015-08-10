@@ -42,7 +42,9 @@ describe RackJax::AppWrapper do
 
   let(:response) {wrapper.handle(request)}
 
-  it 'response has status code' do
-    expect(response.status).to eq(200)
+  context 'response has' do
+    it 'status code' do
+      expect(response.status).to eq(200)
+    end
   end
 end
