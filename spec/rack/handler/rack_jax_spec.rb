@@ -13,9 +13,12 @@ describe Rack::Handler::RackJax do
     end
   end
 
-  it 'smoke fake' do
+  it 'mocked smoke test' do
     fake_server = double
-    allow(described_class).to receive(:create_server).and_return(fake_server)
+    expect(described_class).to receive(:create_server).
+                                with(instance_of(::RackJax::AppWrapper),
+                                     instance_of(Fixnum)).
+                                and_return(fake_server)
     expect(fake_server).to receive(:listen).once
     expect(fake_server).to receive(:serve).once
 
