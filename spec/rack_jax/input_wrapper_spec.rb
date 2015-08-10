@@ -11,31 +11,39 @@ describe RackJax::InputWrapper do
   let(:first_line) {'stuff and text'}
   let(:lines) {[first_line]}
 
-  it 'can get by lines' do
-    expect(input.get).to eq(first_line)
+  describe '#get' do
+    it 'can get by lines' do
+      expect(input.get).to eq(first_line)
+    end
+
+    it 'returns nil once all input is read' do
+      input.get
+      expect(input.get).to be_nil
+    end
   end
 
-  it 'returns nil once all input is read' do
-    input.get
-    expect(input.get).to be_nil
-  end
-
-  it 'reads lines with each' do
-    expect{ |b| input.each(&b)}.to yield_with_args(first_line)
+  describe '#each' do
+    it 'reads lines with each' do
+      expect{ |b| input.each(&b)}.to yield_with_args(first_line)
+    end
   end
 
   context 'with multiple lines' do
     let(:second_line) {'more stuff, but no things'}
     let(:lines) {[first_line, second_line]}
 
-    it 'can get the second line' do
-      expect(input.get).to eq(first_line)
-      expect(input.get).to eq(second_line)
+    describe '#get' do
+      it 'can get the second line' do
+        expect(input.get).to eq(first_line)
+        expect(input.get).to eq(second_line)
+      end
     end
 
-    it 'reads all lines with each' do
-      expect{ |b| input.each(&b)}.to yield_successive_args(first_line,
-                                                           second_line)
+    describe '#each' do
+      it 'reads all lines with each' do
+        expect{ |b| input.each(&b)}.to yield_successive_args(first_line,
+                                                             second_line)
+      end
     end
   end
 end
