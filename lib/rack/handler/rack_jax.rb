@@ -16,11 +16,16 @@ module Rack
         wrapp = ::RackJax::AppWrapper.new(app, host, port)
 
         puts 'Creating server...'
-        server = create_server(wrapp, port.to_i)
+        @server = create_server(wrapp, port.to_i)
 
         puts "Starting server on port #{port}..."
-        server.listen
-        server.serve
+        @server.listen
+        @server.serve
+      end
+
+      def self.shutdown
+        @server.shutdown
+        @server = nil
       end
 
       def self.valid_options
