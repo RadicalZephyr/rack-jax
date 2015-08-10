@@ -87,6 +87,14 @@ describe RackJax::AppWrapper do
           expect(input).to respond_to(:rewind).with(0).arguments
           expect(input.get).to be_nil
         end
+
+        it 'error' do
+          expect(app.env).to include('rack.error' => anything())
+          error = app.env['rack.error']
+          expect(error).to respond_to(:puts)
+          expect(error).to respond_to(:write)
+          expect(error).to respond_to(:flush)
+        end
       end
 
       context 'for GET' do
