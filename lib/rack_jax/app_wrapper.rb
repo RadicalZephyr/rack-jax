@@ -48,10 +48,11 @@ module RackJax
     end
 
     def as_content_provider(body)
-      bodytext = body.reduce("") do |acc, s|
+      acc = ""
+      body.each do |s|
         acc += s
       end
-      string_cp(bodytext)
+      string_cp(acc)
     end
 
     def string_cp(text)
