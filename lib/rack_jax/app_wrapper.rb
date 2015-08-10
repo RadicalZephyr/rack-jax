@@ -36,6 +36,7 @@ module RackJax
       headers.each do |k,v|
         response.add_header(k,v) unless k.start_with?('rack.')
       end
+      response.set_content(as_content_provider(body))
       return response
     end
 
@@ -44,6 +45,17 @@ module RackJax
 
     def http_response(status)
       Java::NetZefiraizingHttp_server::HttpResponse.new(status)
+    end
+
+    def as_content_provider(body)
+      bodytext = body.reduce("") do |acc, s|
+        acc += s
+      end
+      string_cp(bodytext)
+    end
+
+    def string_cp(text)
+      Java::NetZefiraizingHttp_serverContent::StringContentProvider.new(text)
     end
 
     def rackify_headers(headers)

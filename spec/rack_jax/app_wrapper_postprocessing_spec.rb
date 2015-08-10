@@ -21,7 +21,8 @@ describe RackJax::AppWrapper do
   end
 
   let(:headers) {{}}
-  let(:app) {Proc.new { |env| [200, headers, []]}}
+  let(:body) {[]}
+  let(:app) {Proc.new { |env| [200, headers, body]}}
   let(:name) {'localhost'}
   let(:port) {80}
   let(:wrapper) {described_class.new(app, name, port)}
@@ -35,12 +36,12 @@ describe RackJax::AppWrapper do
 
   let(:response) {wrapper.handle(request)}
 
-  context 'response has' do
-    it 'status code' do
+  context 'response' do
+    it 'has status code' do
       expect(response.status).to eq(200)
     end
 
-    context 'headers' do
+    context 'has headers' do
       let(:headers) do
         {
           'RandomHeader' => 'Things',
@@ -61,6 +62,25 @@ describe RackJax::AppWrapper do
         it 'fake' do
           expect(response.headers['rack.fake']).to be_nil
         end
+      end
+    end
+
+    context 'body' do
+      let(:body) do
+        [
+          "First Line\n",
+          "Second Line"
+        ]
+      end
+
+      it 'has the first line' do
+        expect(response.get_data.to_io.gets).to eq("First Line\n")
+      end
+
+      it 'has the first line' do
+        body_io = response.get_data.to_io
+        body_io.gets
+        expect(body_io.gets).to eq("Second Line")
       end
     end
   end
