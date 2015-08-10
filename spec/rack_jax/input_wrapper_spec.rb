@@ -38,6 +38,13 @@ describe RackJax::InputWrapper do
       expect(input.read(3)).to eq('and')
     end
 
+    context 'with a buffer given' do
+      it 'reads bytes into the buffer' do
+        sbuff = 'fir'
+        expect(input.read(2, sbuff)).to eq('first')
+      end
+    end
+
     context 'with nil length' do
       it 'reads the whole contents' do
         expect(input.read).to eq(first_line)
