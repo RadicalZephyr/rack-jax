@@ -68,6 +68,15 @@ describe RackJax::InputWrapper do
     end
   end
 
+  describe '#rewind' do
+
+    it 'can read the first line twice' do
+      expect(input.get).to eq(first_line)
+      input.rewind
+      expect(input.get).to eq(first_line)
+    end
+  end
+
   context 'with multiple lines' do
     let(:second_line) {'more stuff, but no things'}
     let(:lines) {[first_line, second_line]}

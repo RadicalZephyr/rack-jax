@@ -32,6 +32,10 @@ module RackJax
       return buffer.insert(-1, String.from_java_bytes(buff))
     end
 
+    def rewind
+      byte_reader.reset
+    end
+
     private
     attr_reader :byte_reader
 
