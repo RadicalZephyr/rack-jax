@@ -32,7 +32,11 @@ module RackJax
       env.merge!(rackify_headers(request.headers))
 
       status, headers, body = app.call(env)
-      http_response(status)
+      response = http_response(status)
+      headers.each do |k,v|
+        response.add_header(k,v) unless k.start_with?('rack.')
+      end
+      return response
     end
 
     private
