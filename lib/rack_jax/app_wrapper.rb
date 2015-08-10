@@ -31,8 +31,6 @@ module RackJax
                                })
       env.merge!(rackify_headers(request.headers))
 
-      STDERR.puts format_log(env)
-
       status, headers, body = app.call(env)
       response = http_response(status)
       headers.each do |k,v|
