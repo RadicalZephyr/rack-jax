@@ -3,7 +3,13 @@ module RackJax
   class InputWrapper
 
     def initialize(bytes)
-      @byte_reader = java_io::ByteArrayInputStream.new(bytes.array)
+      if bytes.nil?
+        byte_array = Java::byte[0].new
+      else
+        byte_array = bytes.array
+      end
+
+      @byte_reader = java_io::ByteArrayInputStream.new(byte_array)
     end
 
     def get

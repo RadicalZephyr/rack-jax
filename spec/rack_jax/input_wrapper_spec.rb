@@ -11,6 +11,12 @@ describe RackJax::InputWrapper do
   let(:first_line) {'stuff and text'}
   let(:lines) {[first_line]}
 
+  it 'can be initialized with nil' do
+    input = described_class.new(nil)
+    expect(input).not_to be_nil
+    expect(input.get).to be_nil
+  end
+
   describe '#get' do
     it 'can get by lines' do
       expect(input.get).to eq(first_line)
