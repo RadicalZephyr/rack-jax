@@ -18,7 +18,7 @@ module Rack
         puts 'Creating server...'
         server = create_server(wrapp, port.to_i)
 
-        puts 'Starting server...'
+        puts "Starting server on port #{port}..."
         server.listen
         server.serve
       end
