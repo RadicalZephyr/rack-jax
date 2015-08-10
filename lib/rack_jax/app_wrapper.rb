@@ -15,7 +15,7 @@ module RackJax
         'rack.multiprocess' => false,
         'rack.run_once'     => false,
         'rack.hijack?'      => false,
-        'rack.error'        => STDERR,
+        'rack.errors'       => STDERR,
         'SCRIPT_NAME'       => '',
         'SERVER_NAME'       => name,
         'SERVER_PORT'       => port

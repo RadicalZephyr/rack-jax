@@ -125,8 +125,8 @@ describe RackJax::AppWrapper do
         end
 
         it 'error' do
-          expect(app.env).to include('rack.error' => anything())
-          error = app.env['rack.error']
+          expect(app.env).to include('rack.errors' => anything())
+          error = app.env['rack.errors']
           expect(error).to respond_to(:puts)
           expect(error).to respond_to(:write)
           expect(error).to respond_to(:flush)
