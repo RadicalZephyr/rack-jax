@@ -12,4 +12,13 @@ describe Rack::Handler::RackJax do
       expect(described_class.send(:default_host)).to eq('0.0.0.0')
     end
   end
+
+  it 'smoke fake' do
+    fake_server = double
+    allow(described_class).to receive(:create_server).and_return(fake_server)
+    expect(fake_server).to receive(:listen).once
+    expect(fake_server).to receive(:serve).once
+
+    described_class.run(Proc.new { |e| [200, {}, []]})
+  end
 end
