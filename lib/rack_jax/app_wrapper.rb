@@ -31,6 +31,8 @@ module RackJax
                                })
       env.merge!(rackify_headers(request.headers))
 
+      error_io.puts format_log(env)
+
       status, headers, body = app.call(env)
       response = http_response(status)
       headers.each do |k,v|
@@ -42,6 +44,10 @@ module RackJax
 
     private
     attr_reader :app, :name, :port
+
+    def format_log(env)
+      "[#{env['REQUEST_METHOD']} #{env['PATH_INFO']}?#{env['QUERY_STRING']} #{env.each.to_a}]"
+    end
 
     def http_response(status)
       Java::NetZefiraizingHttp_server::HttpResponse.new(status)
