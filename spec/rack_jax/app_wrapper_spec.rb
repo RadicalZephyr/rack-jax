@@ -26,6 +26,12 @@ describe RackJax::AppWrapper do
     Java::JavaNio::ByteBuffer.wrap(text.join("\n").to_java_bytes)
   end
 
+  def add_headers(b, headers)
+    headers.each_pair do |k, v|
+      b.header(k, v)
+    end
+  end
+
   let(:app) {MockHandler.new}
   let(:name) {'localhost'}
   let(:port) {80}
@@ -35,13 +41,15 @@ describe RackJax::AppWrapper do
 
     let(:method) {request_method('GET')}
     let(:path) {'/'}
-    let(:query) {nil}
-    let(:body)  {nil}
+    let(:query)   {nil}
+    let(:headers) {nil}
+    let(:body)    {nil}
 
     let(:request) do
       b = http_request_builder
       b.method(method).path(path)
       b.query(query) unless query.nil?
+      add_headers(b, headers) unless headers.nil?
       b.body(body)   unless body.nil?
       b.build
     end
@@ -52,6 +60,20 @@ describe RackJax::AppWrapper do
 
     it 'calls the app' do
       expect(app.called).to be_truthy
+    end
+
+    context 'with headers' do
+      let(:headers) do
+        {
+          'RandomHeader' => ['Things'],
+          'OtherHeader'  => ['Stuff']
+        }
+      end
+
+      it 'rackifies each header' do
+        expect(app.env).to include('HTTP_RandomHeader' => 'Things')
+        expect(app.env).to include('HTTP_OtherHeader' => 'Stuff')
+      end
     end
 
     context 'sees an env' do

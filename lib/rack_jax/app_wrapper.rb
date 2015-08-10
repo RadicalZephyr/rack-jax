@@ -29,12 +29,20 @@ module RackJax
                                  'PATH_INFO'      => request.path.to_s,
                                  'QUERY_STRING'   => request.query.to_s,
                                })
+      env.merge!(rackify_headers(request.headers))
+
       app.call(env)
       {}
     end
 
     private
     attr_reader :app, :name, :port
+
+    def rackify_headers(headers)
+      headers.map do |k,v|
+        ["HTTP_#{k}", v.join('')]
+      end.to_h
+    end
 
     def error_io
       java.lang.System::err.to_io
