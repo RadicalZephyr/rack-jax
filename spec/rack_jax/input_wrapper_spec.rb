@@ -42,12 +42,22 @@ describe RackJax::InputWrapper do
       it 'reads bytes into the buffer' do
         sbuff = 'fir'
         expect(input.read(2, sbuff)).to eq('first')
+        expect(sbuff).to eq('first')
       end
     end
 
     context 'with nil length' do
       it 'reads the whole contents' do
         expect(input.read).to eq(first_line)
+      end
+
+      context 'and buffer' do
+        it 'appends the whole remaining contents to buffer' do
+          sbuff = 'things '
+          expected_str = 'things '+first_line
+          expect(input.read(nil, sbuff)).to eq(expected_str)
+          expect(sbuff).to eq(expected_str)
+        end
       end
     end
   end
