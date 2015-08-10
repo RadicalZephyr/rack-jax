@@ -14,6 +14,7 @@ module RackJax
         'rack.run_once' => false,
         'rack.hijack?' => false,
         'rack.input' => InputWrapper.new(request.body),
+        'rack.error' => error_io,
         'REQUEST_METHOD' => request.method.to_s,
         'SCRIPT_NAME' => '',
         'PATH_INFO' => request.path.to_s,
@@ -25,5 +26,9 @@ module RackJax
 
     private
     attr_reader :app
+
+    def error_io
+      java.lang.System::err.to_io
+    end
   end
 end
