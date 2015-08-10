@@ -31,12 +31,16 @@ module RackJax
                                })
       env.merge!(rackify_headers(request.headers))
 
-      app.call(env)
-      {}
+      status, headers, body = app.call(env)
+      http_response(status)
     end
 
     private
     attr_reader :app, :name, :port
+
+    def http_response(status)
+      Java::NetZefiraizingHttp_server::HttpResponse.new(status)
+    end
 
     def rackify_headers(headers)
       headers.map do |k,v|
