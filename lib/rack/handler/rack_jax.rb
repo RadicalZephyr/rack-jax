@@ -1,3 +1,8 @@
+require 'rack_jax'
+require 'rack/handler'
+
+Rack::Handler.register('rack_jax', 'Rack::Handler::RackJax')
+
 module Rack
   module Handler
 

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rack/handler/rack_jax'
 
 describe Rack::Handler::RackJax do
 
