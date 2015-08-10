@@ -15,7 +15,7 @@ module RackJax
         'rack.multiprocess' => false,
         'rack.run_once'     => false,
         'rack.hijack?'      => false,
-        'rack.error'        => error_io,
+        'rack.error'        => STDERR,
         'SCRIPT_NAME'       => '',
         'SERVER_NAME'       => name,
         'SERVER_PORT'       => port
@@ -31,7 +31,7 @@ module RackJax
                                })
       env.merge!(rackify_headers(request.headers))
 
-      error_io.puts format_log(env)
+      STDERR.puts format_log(env)
 
       status, headers, body = app.call(env)
       response = http_response(status)
@@ -79,10 +79,6 @@ module RackJax
 
     def prefix_header?(key)
       key != 'Content-Length' && key != 'Content-Type'
-    end
-
-    def error_io
-      java.lang.System::err.to_io
     end
   end
 end
