@@ -77,6 +77,16 @@ describe RackJax::AppWrapper do
         it 'hijack' do
           expect(app.env).to include('rack.hijack?' => false)
         end
+
+        it 'input' do
+          expect(app.env).to include('rack.input' => anything())
+          input = app.env['rack.input']
+          expect(input).to respond_to(:get).with(0).arguments
+          expect(input).to respond_to(:each)
+          expect(input).to respond_to(:read)
+          expect(input).to respond_to(:rewind).with(0).arguments
+          expect(input.get).to be_nil
+        end
       end
 
       context 'for GET' do
