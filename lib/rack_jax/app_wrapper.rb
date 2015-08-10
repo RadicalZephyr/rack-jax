@@ -13,6 +13,7 @@ module RackJax
         'rack.multiprocess' => false,
         'rack.run_once' => false,
         'rack.hijack?' => false,
+        'rack.input' => InputWrapper.new(request.body),
         'REQUEST_METHOD' => request.method.to_s,
         'SCRIPT_NAME' => '',
         'PATH_INFO' => request.path.to_s,
