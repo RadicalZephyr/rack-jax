@@ -18,6 +18,13 @@ module RackJax
       end
     end
 
+    def read(length)
+      buff = Java::byte[length].new
+      byte_reader.read(buff, 0, length)
+
+      return String.from_java_bytes(buff)
+    end
+
     private
     attr_reader :byte_reader
 
