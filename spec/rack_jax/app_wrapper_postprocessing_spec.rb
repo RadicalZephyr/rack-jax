@@ -27,17 +27,9 @@ describe RackJax::AppWrapper do
 
   let(:method) {request_method('GET')}
   let(:path) {'/'}
-  let(:query)   {nil}
-  let(:headers) {nil}
-  let(:body)    {nil}
 
   let(:request) do
-    b = http_request_builder
-    b.method(method).path(path)
-    b.query(query) unless query.nil?
-    add_headers(b, headers) unless headers.nil?
-    b.body(body)   unless body.nil?
-    b.build
+    http_request_builder.method(method).path(path).build()
   end
 
   let(:response) {wrapper.handle(request)}
