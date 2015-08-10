@@ -22,6 +22,10 @@ describe RackJax::AppWrapper do
     Java::NetZefiraizingHttp_server::HttpRequest::Method.valueOf(method)
   end
 
+  def byte_buffer(text)
+    Java::JavaNio::ByteBuffer.wrap(text.join("\n").to_java_bytes)
+  end
+
   let(:app) {MockHandler.new}
   let(:wrapper) {described_class.new(app)}
 
@@ -30,11 +34,13 @@ describe RackJax::AppWrapper do
     let(:method) {request_method('GET')}
     let(:path) {'/'}
     let(:query) {nil}
+    let(:body)  {nil}
 
     let(:request) do
       b = http_request_builder
       b.method(method).path(path)
       b.query(query) unless query.nil?
+      b.body(body)   unless body.nil?
       b.build
     end
 
@@ -108,9 +114,22 @@ describe RackJax::AppWrapper do
 
       context 'for POST ' do
         let(:method) {request_method('POST')}
+        let(:body) {byte_buffer(['this silly text'])}
 
-        it 'with the request method' do
-          expect(app.env).to include('REQUEST_METHOD' => 'POST')
+        context 'with the' do
+          it 'request method' do
+            expect(app.env).to include('REQUEST_METHOD' => 'POST')
+          end
+
+          it 'request body' do
+            expect(app.env).to include('rack.input' => anything())
+            input = app.env['rack.input']
+            expect(input).to respond_to(:get).with(0).arguments
+            expect(input).to respond_to(:each)
+            expect(input).to respond_to(:read)
+            expect(input).to respond_to(:rewind).with(0).arguments
+            expect(input.get).to eq('this silly text')
+          end
         end
       end
     end
