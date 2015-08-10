@@ -11,6 +11,8 @@ describe RackJax::AppWrapper do
     def call(env)
       @called = true
       @env = env
+
+      [200, {}, []]
     end
   end
 
