@@ -3,12 +3,17 @@ module Rack
 
     class RackJax
       def self.run(app, options={})
+        puts 'Extracting options...'
         host = options.delete(:Host) || default_host
         port = options.delete(:Port) || 7070
 
+        puts 'Wrapping app...'
         wrapp = ::RackJax::AppWrapper.new(app, host, port)
 
-        server = create_server(wrapp, port)
+        puts 'Creating server...'
+        server = create_server(wrapp, port.to_i)
+
+        puts 'Starting server...'
         server.listen
         server.serve
       end
