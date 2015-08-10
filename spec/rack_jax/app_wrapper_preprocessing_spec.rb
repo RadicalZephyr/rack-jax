@@ -117,11 +117,11 @@ describe RackJax::AppWrapper do
         it 'input' do
           expect(app.env).to include('rack.input' => anything())
           input = app.env['rack.input']
-          expect(input).to respond_to(:get).with(0).arguments
+          expect(input).to respond_to(:gets).with(0).arguments
           expect(input).to respond_to(:each)
           expect(input).to respond_to(:read)
           expect(input).to respond_to(:rewind).with(0).arguments
-          expect(input.get).to be_nil
+          expect(input.gets).to be_nil
         end
 
         it 'error' do
@@ -186,11 +186,11 @@ describe RackJax::AppWrapper do
           it 'request body' do
             expect(app.env).to include('rack.input' => anything())
             input = app.env['rack.input']
-            expect(input).to respond_to(:get).with(0).arguments
+            expect(input).to respond_to(:gets).with(0).arguments
             expect(input).to respond_to(:each)
             expect(input).to respond_to(:read)
             expect(input).to respond_to(:rewind).with(0).arguments
-            expect(input.get).to eq('this silly text')
+            expect(input.gets).to eq('this silly text')
           end
         end
       end

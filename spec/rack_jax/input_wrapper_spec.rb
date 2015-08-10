@@ -14,17 +14,17 @@ describe RackJax::InputWrapper do
   it 'can be initialized with nil' do
     input = described_class.new(nil)
     expect(input).not_to be_nil
-    expect(input.get).to be_nil
+    expect(input.gets).to be_nil
   end
 
   describe '#get' do
     it 'can get by lines' do
-      expect(input.get).to eq(first_line)
+      expect(input.gets).to eq(first_line)
     end
 
     it 'returns nil once all input is read' do
-      input.get
-      expect(input.get).to be_nil
+      input.gets
+      expect(input.gets).to be_nil
     end
   end
 
@@ -71,9 +71,9 @@ describe RackJax::InputWrapper do
   describe '#rewind' do
 
     it 'can read the first line twice' do
-      expect(input.get).to eq(first_line)
+      expect(input.gets).to eq(first_line)
       input.rewind
-      expect(input.get).to eq(first_line)
+      expect(input.gets).to eq(first_line)
     end
   end
 
@@ -83,8 +83,8 @@ describe RackJax::InputWrapper do
 
     describe '#get' do
       it 'can get the second line' do
-        expect(input.get).to eq(first_line)
-        expect(input.get).to eq(second_line)
+        expect(input.gets).to eq(first_line)
+        expect(input.gets).to eq(second_line)
       end
     end
 

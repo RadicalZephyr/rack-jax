@@ -12,13 +12,13 @@ module RackJax
       @byte_reader = java_io::ByteArrayInputStream.new(byte_array)
     end
 
-    def get
+    def gets
       line_reader.read_line
     end
 
     def each
       loop do
-        s = get
+        s = gets
         break if s.nil?
         yield s
       end
