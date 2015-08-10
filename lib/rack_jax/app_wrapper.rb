@@ -9,16 +9,16 @@ module RackJax
 
     def base_request
       {
-        'rack.version' => [1,1],
-        'rack.url_scheme' => 'http',
-        'rack.multithread' => true,
+        'rack.version'      => [1,1],
+        'rack.url_scheme'   => 'http',
+        'rack.multithread'  => true,
         'rack.multiprocess' => false,
-        'rack.run_once' => false,
-        'rack.hijack?' => false,
-        'rack.error' => error_io,
-        'SCRIPT_NAME' => '',
-        'SERVER_NAME' => name,
-        'SERVER_PORT' => port
+        'rack.run_once'     => false,
+        'rack.hijack?'      => false,
+        'rack.error'        => error_io,
+        'SCRIPT_NAME'       => '',
+        'SERVER_NAME'       => name,
+        'SERVER_PORT'       => port
       }
     end
 
@@ -26,8 +26,8 @@ module RackJax
       env = base_request.merge({
                                  'rack.input' => InputWrapper.new(request.body),
                                  'REQUEST_METHOD' => request.method.to_s,
-                                 'PATH_INFO' => request.path.to_s,
-                                 'QUERY_STRING' => request.query.to_s,
+                                 'PATH_INFO'      => request.path.to_s,
+                                 'QUERY_STRING'   => request.query.to_s,
                                })
       app.call(env)
       {}
