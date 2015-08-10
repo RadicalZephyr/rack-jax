@@ -67,10 +67,10 @@ describe RackJax::AppWrapper do
     context 'with headers' do
       let(:headers) do
         {
-          'RandomHeader' => ['Things'],
-          'With-Hyphen'  => ['RatherUnderscores'],
-          'Content-Length' => ['10'],
-          'Content-Type'   => ['text/xml']
+          'RandomHeader' => 'Things',
+          'With-Hyphen'  => 'RatherUnderscores',
+          'Content-Length' => '10',
+          'Content-Type'   => 'text/xml'
         }
       end
 
