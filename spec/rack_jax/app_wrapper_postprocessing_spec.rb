@@ -20,7 +20,8 @@ describe RackJax::AppWrapper do
     end
   end
 
-  let(:app) {Proc.new { |env| [200, {}, []]}}
+  let(:headers) {{}}
+  let(:app) {Proc.new { |env| [200, headers, []]}}
   let(:name) {'localhost'}
   let(:port) {80}
   let(:wrapper) {described_class.new(app, name, port)}
@@ -37,6 +38,30 @@ describe RackJax::AppWrapper do
   context 'response has' do
     it 'status code' do
       expect(response.status).to eq(200)
+    end
+
+    context 'headers' do
+      let(:headers) do
+        {
+          'RandomHeader' => 'Things',
+          'With-Hyphen'  => 'RatherUnderscores',
+          'rack.fake'    => 'for-server',
+        }
+      end
+
+      it 'RandomHeader' do
+        expect(response.headers['RandomHeader']).to eq(['Things'])
+      end
+
+      it 'With-Hyphen' do
+        expect(response.headers['With-Hyphen']).to eq(['RatherUnderscores'])
+      end
+
+      context 'omits rack.*' do
+        it 'fake' do
+          expect(response.headers['rack.fake']).to be_nil
+        end
+      end
     end
   end
 end
